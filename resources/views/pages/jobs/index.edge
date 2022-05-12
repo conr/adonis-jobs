@@ -1,20 +1,26 @@
-@each(job in jobs)
-<li> 
-  <h3>{{ job.title }}</h3>
-  <h4>{{ job.organizationName }}</h4>
-  <div>
-    <div>
-      <div>
-        <p>{{ job.type }}</p>
-      </div>
-      <div>
-        <p>{{ job.location }}</p>
-      </div>
-    </div>
+@layout('layout')
 
-    <p>
-      {{ timeSince(job.updatedAt) }} ago
-    </p>
-  </div>
-</li>
+@section('body')
+  @each(job in jobs)
+    <a href={{ job.url }} target="_blank">
+      <li>
+        <h3>{{ job.title }}</h3>
+        <h4>{{ job.organizationName }}</h4>
+        <div>
+          <div>
+            <div>
+              <p>{{ job.type }}</p>
+            </div>
+            <div>
+              <p>{{ job.location }}</p>
+            </div>
+          </div>
+
+          <p>
+            {{ timeSince(job.updatedAt) }} ago
+          </p>
+        </div>
+      </li>
+    </a>
+  @end
 @end
