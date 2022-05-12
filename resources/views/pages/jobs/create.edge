@@ -1,0 +1,78 @@
+@layout('layouts/main')
+
+@section('body')
+<!--
+  This example requires Tailwind CSS v2.0+ 
+  
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-50">
+  <body class="h-full">
+  ```
+-->
+<div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Post a Job</h2>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <form class="space-y-6" action="#" method="POST">
+        @!component('components/forms/field', {
+          label: 'Job title',
+          type: 'text',
+          name: 'title',
+          example: 'Lead Adonis Developer'
+        })
+
+        @!component('components/forms/field', {
+          label: 'Job location',
+          type: 'text',
+          name: 'location',
+          example: 'Remote, London'
+        })
+
+        @!component('components/forms/select-field', {
+          label: 'Job type',
+          name: 'type',
+          options: ['Full-time', 'Contract', 'Apprenticeship / Internship']
+        })
+
+        @!component('components/forms/field', {
+          label: 'Organization name',
+          type: 'text',
+          name: 'organizationName',
+        })
+
+        @!component('components/forms/field', {
+          label: 'URL to the description of the job',
+          type: 'text',
+          name: 'organizationName',
+          example: 'https://acme.com/jobs/adonis-developer'
+        })
+
+        <div>
+          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Post
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@end

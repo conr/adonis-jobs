@@ -6,4 +6,8 @@ export default class JobsController {
     const jobs = await Job.query().where('is_confirmed', true)
     return view.render('pages/jobs/index', { jobs })
   }
+
+  public async create({ view }: HttpContextContract) {
+    return view.render('pages/jobs/create')
+  }
 }
