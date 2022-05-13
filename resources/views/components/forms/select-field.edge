@@ -11,4 +11,9 @@
       Example : {{ example }}
     </p>
   @endif
+
+
+  @if(flashMessages.has(`errors/${name}`))
+    {{ flashMessages.get(`errors/${name}`) }}
+  @endif
 </div>
