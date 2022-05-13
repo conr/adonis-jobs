@@ -1,6 +1,10 @@
 @layout('layouts/main')
 
 @section('body')
+  @if(flashMessages.get('info'))
+    {{ flashMessages.get('info') }}
+  @endif
+  
   @each(job in jobs)
     <a href={{ job.url }} target="_blank">
       <li>

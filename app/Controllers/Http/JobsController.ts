@@ -12,9 +12,16 @@ export default class JobsController {
     return view.render('pages/jobs/create')
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, session }: HttpContextContract) {
     const payload = await request.validate(PostJobValidator)
+
     await Job.create(payload)
+
+    session.flash(
+      'info',
+      'Your job post is successfully submitted. We still need to review it before showing it on the homepage.'
+    )
+
     return response.redirect('/')
   }
 }
