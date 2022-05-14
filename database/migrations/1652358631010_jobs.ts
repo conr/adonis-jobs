@@ -11,8 +11,8 @@ export default class Jobs extends BaseSchema {
       table.string('location').notNullable()
       table.string('type').notNullable()
       table.string('organization_name').notNullable()
+      table.string('organization_logo')
       table.string('url').notNullable()
-      table.boolean('is_confirmed').defaultTo(false)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

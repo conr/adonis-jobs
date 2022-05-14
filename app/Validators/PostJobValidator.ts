@@ -28,6 +28,10 @@ export default class PostJobValidator {
     location: schema.string(),
     type: schema.enum(['Full-time', 'Contract', 'Apprenticeship / Internship']),
     organizationName: schema.string(),
+    organizationLogo: schema.file.optional({
+      size: '2mb',
+      extnames: ['jpg', 'jpeg', 'png', 'gif'],
+    }),
     url: schema.string({}, [rules.url()]),
   })
 

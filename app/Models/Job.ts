@@ -18,10 +18,10 @@ export default class Job extends BaseModel {
   public organizationName: string
 
   @column()
-  public url: string
+  public organizationLogo?: string
 
-  @column({})
-  public isConfirmed: boolean
+  @column()
+  public url: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

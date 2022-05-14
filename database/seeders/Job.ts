@@ -3,7 +3,6 @@ import Job from 'App/Models/Job'
 
 export default class JobSeeder extends BaseSeeder {
   public async run() {
-    // Write your database queries inside the run method
     await Job.createMany([
       {
         title: 'Software Engineer',
@@ -11,7 +10,6 @@ export default class JobSeeder extends BaseSeeder {
         type: 'Full Time',
         organizationName: 'Google',
         url: 'https://www.google.com',
-        isConfirmed: true,
       },
       {
         title: 'Junior Developer',
@@ -19,7 +17,6 @@ export default class JobSeeder extends BaseSeeder {
         type: 'Apprenticeship / Internship',
         organizationName: 'Facebook',
         url: 'https://www.facebook.com',
-        isConfirmed: true,
       },
       {
         title: 'Senior Developer',
