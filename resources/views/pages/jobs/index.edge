@@ -2,33 +2,42 @@
 
 @section('body')
   @if(flashMessages.get('info'))
-    {{ flashMessages.get('info') }}
+    <p class="text-green-600">{{ flashMessages.get('info') }}</p>
   @endif
 
+  <h2 class="text-3xl font-bold py-4">New jobs</h2>
+
   @each(job in jobs)
-    <a href={{ job.url }} target="_blank">
-      <li>
-        <h3>{{ job.title }}</h3>
-        <h4>{{ job.organizationName }}</h4>
-        <div>
-          <div>
-            <div>
-              <p>{{ job.type }}</p>
-            </div>
-            <div>
-              <p>{{ job.location }}</p>
-            </div>
-          </div>
-
-          <p>
-            {{ timeSince(job.updatedAt) }} ago
-          </p>
-        </div>
-      </li>
-
+    <a href={{ job.url }} class=" flex space-x-5 hover:bg-gray-50 border-2 border-b-0 last:border-b-2 p-5">
       @if(job.organizationLogo)
-        <img src="{{ job.organizationLogo }}" />
+        <img src="{{ job.organizationLogo }}" class="h-24 w-24" />
+      @else
+        <p class="h-24 w-24 bg-blue-50 flex justify-center items-center">
+          {{ job.organizationName.split(' ').map(str => str[0]).join('') }}
+        </p>
       @endif
+
+      <div class="flex justify-between w-full">
+        <div>
+          <h3 class="font-semibold">{{ job.title }}</h3>
+          <h4>{{ job.organizationName }}</h4>
+          <div class="flex space-x-4 pt-6">
+            <p class="flex items-center">
+              @include('components/icons/office-building') 
+              {{ job.type }}
+            </p>
+            <p class="flex items-center">
+              @include('components/icons/location-marker') 
+              {{ job.location }}
+            </p>
+          </div>
+        </div>
+
+        <p>
+          {{ timeSince(job.updatedAt) }} ago
+        </p>
+      </div>
     </a>
   @end
 @end
+
