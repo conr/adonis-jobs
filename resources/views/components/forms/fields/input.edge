@@ -10,18 +10,28 @@
       id="{{ name }}" name="{{ name }}" type="{{ type }}" 
       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
       @if(!optional)
-      required
+        required
       @endif
     >
   </div>
-
+  
   @if(example)
     <p class="text-gray-500 text-sm pt-1">
       Example : {{ example }}
     </p>
   @endif
 
-  @if(flashMessages.has(`errors/${name}`))
-    {{ flashMessages.get(`errors/${name}`) }}
+  @if(flashMessages.has(`errors.${name}`))
+    @if(typeof flashMessages.get(`errors.${name}`) === 'string')
+      <p class="text-red-600">
+        {{ flashMessages.get(`errors.${name}`) }}
+      </p>
+    @else
+      @each(error in flashMessages.get(`errors.${name}`))
+        <p class="text-red-600 text-sm">
+          {{ error }}
+        </p>
+      @endeach
+    @endif
   @endif
 </div>

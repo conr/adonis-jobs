@@ -10,7 +10,7 @@
   @each(job in jobs)
     <a href={{ job.url }} class=" flex space-x-5 hover:bg-gray-50 border-2 border-b-0 last:border-b-2 p-5">
       @if(job.organizationLogo)
-        <img src="{{ job.organizationLogo }}" class="h-24 w-24" />
+        <img src="{{ job.organizationLogo.url }}" class="h-24 w-24" />
       @else
         <p class="h-24 w-24 bg-blue-50 flex justify-center items-center">
           {{ job.organizationName.split(' ').map(str => str[0]).join('') }}

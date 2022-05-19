@@ -11,7 +11,7 @@ export default class Jobs extends BaseSchema {
       table.string('location').notNullable()
       table.string('type').notNullable()
       table.string('organization_name').notNullable()
-      table.string('organization_logo')
+      table.json('organization_logo')
       table.string('url').notNullable()
 
       /**

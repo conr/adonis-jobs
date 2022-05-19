@@ -1,8 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Job from 'App/Models/Job'
 import PostJobValidator from 'App/Validators/PostJobValidator'
-import Application from '@ioc:Adonis/Core/Application'
-import crypto from 'crypto'
+import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class JobsController {
   public async index({ view }: HttpContextContract) {
@@ -20,11 +19,7 @@ export default class JobsController {
     const payload: Record<string, any> = body
 
     if (organizationLogo) {
-      const imageName = crypto.randomUUID()
-      await organizationLogo.moveToDisk(Application.publicPath('images'), {
-        name: imageName,
-      })
-      payload.organizationLogo = `images/${imageName}`
+      payload.organizationLogo = Attachment.fromFile(organizationLogo)
     }
 
     await Job.create(payload)

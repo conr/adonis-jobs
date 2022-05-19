@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class Job extends BaseModel {
   @column({ isPrimary: true })
@@ -17,8 +18,8 @@ export default class Job extends BaseModel {
   @column()
   public organizationName: string
 
-  @column()
-  public organizationLogo?: string
+  @attachment({ folder: 'logos', preComputeUrl: true })
+  public organizationLogo?: AttachmentContract
 
   @column()
   public url: string
