@@ -1,14 +1,35 @@
 @layout('layouts/main')
 
 @section('body')
-<div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+<div class="min-h-full flex flex-col justify-center py-8 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <h2 class="text-center text-3xl font-extrabold text-gray-900">Post a Job</h2>
+    <h2 class="text-3xl font-extrabold text-gray-900 text-center">Post a Job</h2>
   </div>
 
-  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
     <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
       <form class="space-y-6" action="{{ route('JobsController.store') }}" method="POST" enctype="multipart/form-data">
+        <h3 class="text-stone-900 font-semibold text-xl">🏢 Company details</h3>
+
+        @!component('components/forms/fields/input', {
+          label: 'Organization name',
+          type: 'text',
+          name: 'organizationName',
+          example: 'ACME',
+        })
+
+        @!component('components/forms/fields/input', {
+          label: 'Organization logo',
+          type: 'file',
+          name: 'organizationLogo',
+          example: '1:1 square (100x100)',
+          optional: true,
+        })
+
+        <hr />
+
+        <h3 class="text-stone-900 font-semibold text-xl">💻 Job details</h3>
+
         @!component('components/forms/fields/input', {
           label: 'Job title',
           type: 'text',
@@ -30,21 +51,6 @@
         })
 
         @!component('components/forms/fields/input', {
-          label: 'Organization name',
-          type: 'text',
-          name: 'organizationName',
-          example: 'ACME',
-        })
-
-        @!component('components/forms/fields/input', {
-          label: 'Organization logo',
-          type: 'file',
-          name: 'organizationLogo',
-          example: '1:1 square (100x100)',
-          optional: true,
-        })
-
-        @!component('components/forms/fields/input', {
           label: 'URL to the description of the job',
           type: 'text',
           name: 'url',
@@ -52,7 +58,7 @@
         })
 
         <div>
-          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white bg-stone-800 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             Post
           </button>
         </div>

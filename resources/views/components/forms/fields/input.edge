@@ -1,14 +1,14 @@
 <div>
-  <label for="{{ name }}" class="block text-sm font-medium text-gray-700">
+  <label for="{{ name }}" class="block text-sm font-medium text-stone-700">
     {{ label }}
     @if(optional)
-      <span class="text-gray-400">(optional)</span>
+      <span class="text-stone-400">(optional)</span>
     @endif
   </label>
   <div class="mt-1">
     <input 
       id="{{ name }}" name="{{ name }}" type="{{ type }}" 
-      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+      class="appearance-none block w-full px-3 py-2 border border-stone-300 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
       @if(!optional)
         required
       @endif
@@ -16,7 +16,7 @@
   </div>
   
   @if(example)
-    <p class="text-gray-500 text-sm pt-1">
+    <p class="text-stone-500 text-sm pt-1">
       Example : {{ example }}
     </p>
   @endif

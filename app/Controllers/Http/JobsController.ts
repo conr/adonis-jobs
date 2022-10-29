@@ -24,7 +24,7 @@ export default class JobsController {
 
     await Job.create(payload)
 
-    session.flash('info', 'Your job post is successfully submitted.')
+    session.flash('info', 'Your job has been posted successfully')
 
     return response.redirect('/')
   }

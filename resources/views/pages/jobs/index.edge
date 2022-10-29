@@ -5,10 +5,19 @@
     <p class="text-green-600">{{ flashMessages.get('info') }}</p>
   @endif
 
-  <h2 class="text-3xl font-bold py-4">New jobs</h2>
+  <div class="mx-4 mb-8 text-center">
+    <h2 class="text-5xl font-bold py-4 text-stone-800 tracking-tight leading-[64px]">Find the perfect<br /> <i>Adonis</i> role.</h2>
+    <p class="text-xl text-stone-800"><i>AdonisJobs</i> is the number one destination<br />to find and list Adonis jobs.</p>
+  </div>
+
+  @if(jobs.length === 0)
+    <p class="text-center text-stone-800">No jobs found yet.</p>
+  @else
+    <h3 class="m-4 uppercase font-medium text-sm">✨ Recent Jobs</h3>
+  @endif
 
   @each(job in jobs)
-    <a href={{ job.url }} class=" flex space-x-5 hover:bg-gray-50 border-2 border-b-0 last:border-b-2 p-5">
+    <a href={{ job.url }} class="mx-4 flex space-x-5 shadow hover:opacity-75 transition-opacity p-5">
       @if(job.organizationLogo)
         <img src="{{ job.organizationLogo.url }}" class="h-24 w-24" />
       @else
@@ -22,18 +31,18 @@
           <h3 class="font-semibold">{{ job.title }}</h3>
           <h4>{{ job.organizationName }}</h4>
           <div class="flex space-x-4 pt-6">
-            <p class="flex items-center">
+            <p class="flex items-center text-sm rounded-lg px-2 py-1 border text-stone-700">
               @include('components/icons/office-building') 
               {{ job.type }}
             </p>
-            <p class="flex items-center">
+            <p class="flex items-center text-sm rounded-lg px-2 py-1 border text-stone-700">
               @include('components/icons/location-marker') 
               {{ job.location }}
             </p>
           </div>
         </div>
 
-        <p>
+        <p class="text-stone-600">
           {{ timeSince(job.updatedAt) }} ago
         </p>
       </div>
