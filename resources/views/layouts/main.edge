@@ -4,14 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>AdonisJS Jobs</title>
+  <meta property="og:title" content="AdonisJobs" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://adonisjobs.dev" />
+  <meta property="og:image" content="https://adonisjobs.dev/og.png" />
+  <title>AdonisJobs</title>
   @entryPointStyles('app')
   @entryPointScripts('app')
 </head>
-<body class="overflow-scroll">
+<body class="overflow-y-scroll min-h-screen flex flex-col">
   @include('partials/header')
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-    @!section('body')
+  <main>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      @!section('body')
+    </div>
   </main>
   @include('partials/footer')
 </body>
