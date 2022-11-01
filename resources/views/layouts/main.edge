@@ -17,6 +17,10 @@
   @include('partials/header')
   <main>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      @if(flashMessages.get('info'))
+        <p class="text-green-600 mx-4">{{ flashMessages.get('info') }}</p>
+      @endif
+      
       @!section('body')
     </div>
   </main>

@@ -8,7 +8,7 @@
 
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
     <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-      <form class="space-y-6" action="{{ route('JobsController.store') }}" method="POST" enctype="multipart/form-data">
+      <form class="space-y-6" action="{{ route('JobsController.store') }}" method="POST" enctype="multipart/form-data" x-data="{ hasURL: false }">
         <h3 class="text-stone-900 font-semibold text-xl">🏢 Company details</h3>
 
         {{ csrfField() }}
@@ -49,18 +49,55 @@
         @!component('components/forms/fields/select', {
           label: 'Job type',
           name: 'type',
-          options: ['Full-time', 'Contract', 'Apprenticeship / Internship']
+          options: ['Full-time', 'Part-Time', 'Contract', 'Apprenticeship / Internship']
         })
 
-        @!component('components/forms/fields/input', {
-          label: 'URL to the description of the job',
-          type: 'text',
-          name: 'url',
-          example: 'https://acme.com/jobs/adonis-developer'
-        })
+        <div class="flex">
+          <input 
+            id="hasURL" name="hasURL" type="checkbox" 
+            class="mr-2 appearance-none block p-2 border border-stone-300 text-stone-700 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm whitespace-pre-wrap"
+            x-on:change="hasURL = !hasURL"
+          >
+          <label for="hasURL" class="block text-sm font-medium text-stone-700">
+            Is the job's description on an external website?
+          </label>
+        </div>
 
+        <template x-if="hasURL">
+          <div>
+            @!component('components/forms/fields/input', {
+              label: 'URL to the description of the job',
+              type: 'text',
+              name: 'url',
+              example: 'https://acme.com/jobs/adonis-developer'
+            })
+          </div>
+        </template>
+        
+        <template x-if="!hasURL">
+          <div>
+            <label for="description" class="block text-sm font-medium text-stone-700">
+              Description of the job
+            </label>
+            <textarea 
+              class="appearance-none block w-full mt-1 p-2 border border-stone-300 text-stone-700 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              id="description" 
+              name="description"
+              rows="8"
+              required
+              placeholder="Don't forget to include a way to apply for the job!"
+              ></textarea>
+          </div>
+        </template>
+        
+        @if(flashMessages.has('error'))
+          <p class="text-red-600">
+            {{ flashMessages.get('error') }}
+          </p>
+        @endif
+        
         <div>
-          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white bg-stone-800 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white bg-stone-800 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
             Post your job
           </button>
         </div>

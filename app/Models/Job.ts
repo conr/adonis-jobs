@@ -22,7 +22,10 @@ export default class Job extends BaseModel {
   public organizationLogo?: AttachmentContract
 
   @column()
-  public url: string
+  public url?: string
+
+  @column()
+  public description?: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

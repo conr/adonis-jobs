@@ -22,10 +22,29 @@ export default class JobsController {
       payload.organizationLogo = Attachment.fromFile(organizationLogo)
     }
 
-    await Job.create(payload)
+    if (!payload.url && !payload.description) {
+      session.flash('error', 'URL or description is required')
+      return response.redirect().back()
+    }
 
-    session.flash('info', 'Your job has been posted successfully')
+    const { id } = await Job.create(payload)
+
+    session.flash('info', '🎉 Your job has been posted successfully !')
+
+    if (payload.description) {
+      return response.redirect().toRoute('jobs.show', [id])
+    }
 
     return response.redirect('/')
+  }
+
+  public async show({ view, params, response }: HttpContextContract) {
+    const job = await Job.find(params.id)
+
+    if (!job) {
+      return response.notFound()
+    }
+
+    return view.render('pages/jobs/show', { job })
   }
 }

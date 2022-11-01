@@ -1,0 +1,44 @@
+@layout('layouts/main')
+
+@section('body')
+<div class="mx-4 mt-4">
+
+<a class="text-stone-700 font-medium cursor-pointer hover:opacity-75 transition-opacity" href="{{ route('jobs.index') }}">
+    ← Back to all jobs
+</a>
+
+<h2 class="text-6xl font-bold py-4 text-stone-800 tracking-tight leading-[64px]">
+    {{ job.title }}
+</h2>
+
+<p class="text-stone-600">
+    <span class="text-stone-700">{{ job.organizationName }}</span> · Posted on {{ new Date(job.createdAt).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}) }}
+</p>
+
+<div class="flex flex-col-reverse sm:flex-row mt-8">
+    <div class="sm:w-4/5 pr-10">
+        <div class="prose whitespace-pre-wrap">{{ job.description }}</div>
+    </div>
+    <div class="flex flex-col sm:w-1/5">
+        <div class="my-2 mx-4">
+            @!component('partials/organization-logo', { job })
+        </div>
+        <div class="sm:border-l-2 border-stone-800 px-4 py-2 space-y-4 my-6">
+            <div>
+                <span class="text-stone-700">Organization</span> 
+                <p>{{ job.organizationName }}</p>
+            </div>
+            <div>
+                <span class="text-stone-700">Job Type</span> 
+                <p>{{ job.type }}</p>
+            </div>
+            <div>
+                <span class="text-stone-700">Location</span> 
+                <p>{{ job.location }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+@end

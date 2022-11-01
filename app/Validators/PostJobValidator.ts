@@ -26,13 +26,14 @@ export default class PostJobValidator {
   public schema = schema.create({
     title: schema.string(),
     location: schema.string(),
-    type: schema.enum(['Full-time', 'Contract', 'Apprenticeship / Internship']),
+    type: schema.enum(['Full-time', 'Part-time', 'Contract', 'Apprenticeship / Internship']),
     organizationName: schema.string(),
     organizationLogo: schema.file.optional({
       size: '1mb',
       extnames: ['jpg', 'jpeg', 'png', 'gif'],
     }),
-    url: schema.string({}, [rules.url()]),
+    url: schema.string.optional({}, [rules.url()]),
+    description: schema.string.optional(),
   })
 
   /**
@@ -51,7 +52,6 @@ export default class PostJobValidator {
     'location.required': 'Location is required',
     'type.required': 'Type is required',
     'organizationName.required': 'Organization name is required',
-    'url.required': 'URL is required',
     'url.url': 'URL is not valid',
   }
 }

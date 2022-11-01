@@ -1,0 +1,7 @@
+ @if(job.organizationLogo)
+    <img src="{{ job.organizationLogo.url }}" class="h-24 w-24 rounded-full" />
+@else
+    <p class="h-24 w-24 bg-red-50 flex justify-center items-center rounded-full">
+        {{ job.organizationName.split(' ').map(str => str[0]).join('') }}
+    </p>
+@endif
