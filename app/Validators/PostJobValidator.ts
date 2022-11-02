@@ -26,7 +26,7 @@ export default class PostJobValidator {
   public schema = schema.create({
     title: schema.string(),
     location: schema.string(),
-    type: schema.enum(['Full-time', 'Part-time', 'Contract', 'Apprenticeship / Internship']),
+    type: schema.enum(['Full-time', 'Part-Time', 'Contract', 'Apprenticeship / Internship']),
     organizationName: schema.string(),
     organizationLogo: schema.file.optional({
       size: '1mb',
