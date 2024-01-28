@@ -27,6 +27,9 @@ export default class Job extends BaseModel {
   @column()
   public description?: string
 
+  @column()
+  public confirmed?: boolean
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

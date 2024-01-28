@@ -53,8 +53,8 @@
         })
 
         <div class="flex">
-          <input 
-            id="hasURL" name="hasURL" type="checkbox" 
+          <input
+            id="hasURL" name="hasURL" type="checkbox"
             class="mr-2 appearance-none block p-2 border border-stone-300 text-stone-700 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm whitespace-pre-wrap"
             x-on:change="hasURL = !hasURL"
           >
@@ -73,15 +73,15 @@
             })
           </div>
         </template>
-        
+
         <template x-if="!hasURL">
           <div>
             <label for="description" class="block text-sm font-medium text-stone-700">
               Description of the job
             </label>
-            <textarea 
+            <textarea
               class="appearance-none block w-full mt-1 p-2 border border-stone-300 text-stone-700 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
-              id="description" 
+              id="description"
               name="description"
               rows="8"
               required
@@ -89,13 +89,13 @@
               ></textarea>
           </div>
         </template>
-        
+
         @if(flashMessages.has('error'))
           <p class="text-red-600">
             {{ flashMessages.get('error') }}
           </p>
         @endif
-        
+
         <div>
           <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white bg-stone-800 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
             Post your job

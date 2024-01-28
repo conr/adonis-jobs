@@ -1,5 +1,25 @@
 {
   "commands": {
+    "validate:job": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "./commands/ValidateJob",
+      "commandName": "validate:job",
+      "description": "",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "jobId",
+          "name": "jobId",
+          "required": true,
+          "description": "The id of the job"
+        }
+      ],
+      "aliases": [],
+      "flags": []
+    },
     "dump:rcfile": {
       "settings": {},
       "commandPath": "@adonisjs/core/build/commands/DumpRc",

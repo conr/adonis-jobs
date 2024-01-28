@@ -2,10 +2,12 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Job from 'App/Models/Job'
 import PostJobValidator from 'App/Validators/PostJobValidator'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
+import Env from '@ioc:Adonis/Core/Env'
+import axios from 'axios'
 
 export default class JobsController {
   public async index({ view }: HttpContextContract) {
-    const jobs = await Job.all()
+    const jobs = await Job.query().where('confirmed', true).orderBy('created_at', 'desc')
     return view.render('pages/jobs/index', { jobs })
   }
 
@@ -29,7 +31,18 @@ export default class JobsController {
 
     const { id } = await Job.create(payload)
 
-    session.flash('info', '🎉 Your job has been posted successfully !')
+    try {
+      await axios.post(Env.get('DISCORD_WEBHOOK_URL'), {
+        content: `New job posted: <https://adonisjobs.com/jobs/${id}>`,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
+    session.flash(
+      'info',
+      '🎉 Your job has been posted successfully ! Awaiting confirmation from the admin.'
+    )
 
     if (payload.description) {
       return response.redirect().toRoute('jobs.show', [id])

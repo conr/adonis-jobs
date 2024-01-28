@@ -1,27 +1,51 @@
-ARG NODE_IMAGE=node:16.13.1-alpine
+# syntax = docker/dockerfile:1
 
-FROM $NODE_IMAGE AS base
-RUN apk --no-cache add dumb-init g++ make py3-pip
-RUN mkdir -p /home/node/app && chown node:node /home/node/app
-WORKDIR /home/node/app
-USER node
-RUN mkdir tmp
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=21.5.0
+FROM node:${NODE_VERSION}-slim as base
 
-FROM base AS dependencies
-COPY --chown=node:node ./package*.json ./
-RUN npm ci
-COPY --chown=node:node . .
+LABEL fly_launch_runtime="AdonisJS"
 
-FROM dependencies AS build
-RUN node ace build --production
+# AdonisJS app lives here
+WORKDIR /app
 
-FROM base AS production
-ENV NODE_ENV=production
-ENV PORT=$PORT
-ENV HOST=0.0.0.0
-COPY --chown=node:node ./package*.json ./
-RUN npm ci --production
-COPY --chown=node:node --from=build /home/node/app/build .
-CMD [ "node", "ace", "migration:run", "--force" ]
-EXPOSE $PORT
-CMD [ "dumb-init", "node", "server.js" ]
+# Set production environment
+ENV NODE_ENV="production"
+
+
+# Throw-away build stage to reduce size of final image
+FROM base as build
+
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
+
+# Install node modules
+COPY --link package-lock.json package.json ./
+RUN npm ci --include=dev
+
+# Copy application code
+COPY --link . .
+
+# Build application
+RUN npm run build
+
+
+# Final stage for app image
+FROM base
+
+# Copy built application
+COPY --from=build /app /app
+
+# Entrypoint sets up the container.
+ENTRYPOINT [ "/app/docker-entrypoint.js" ]
+
+# Start the server by default, this can be overwritten at runtime
+EXPOSE 3000
+ENV CACHE_VIEWS="true" \
+    DB_CONNECTION="pg" \
+    DRIVE_DISK="local" \
+    HOST="0.0.0.0" \
+    PORT="3000" \
+    SESSION_DRIVER="cookie"
+CMD [ "node", "/app/build/server.js" ]

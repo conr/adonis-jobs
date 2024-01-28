@@ -1,38 +1,29 @@
-# fly.toml file generated for adonisjobs on 2022-10-30T09:22:02+01:00
+# fly.toml app configuration file generated for adonis-jobs on 2024-01-28T11:09:58+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "adonisjobs"
-kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
+app = "adonis-jobs"
+primary_region = "cdg"
 
-[env]
+[build]
 
-[experimental]
-  allowed_public_ports = []
-  auto_rollback = true
-
-[[services]]
-  http_checks = []
-  internal_port = 3333
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
   processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
 
-  [[services.ports]]
-    force_https = true
-    handlers = ["http"]
-    port = 80
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
 
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
+[deploy]
+  release_command = "/app/docker-entrypoint.js node ace migration:run --force"
 
-  [[services.tcp_checks]]
-    grace_period = "1s"
-    interval = "15s"
-    restart_limit = 0
-    timeout = "2s"
+[mounts]
+  source="adonisjobsuploads"
+  destination="/app/build/tmp/"
