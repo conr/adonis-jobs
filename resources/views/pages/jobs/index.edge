@@ -2,41 +2,42 @@
 
 @section('body')
 
-  <div class="mx-4 my-8 text-center">
-    <h2 class="text-6xl font-bold py-4 text-stone-800 tracking-tight leading-[64px]">Find the perfect<br /> <i>Adonis</i> role.</h2>
-    <p class="text-xl text-stone-800"><i>AdonisJobs</i> is the number one destination<br />to find and list Adonis jobs.</p>
-  </div>
+<div class="mx-4 my-8 text-center">
+  <h2 class="text-6xl font-bold py-4 text-stone-800 tracking-tight leading-[64px]">No Messing<br /> <i>Only</i> Jobs.
+  </h2>
+  <p class="text-xl text-stone-800"><i>OnlyJobs</i> is the number one destination<br />to find and list jobs.</p>
+</div>
 
-  @if(jobs.length === 0)
-    <p class="text-center text-stone-800">No jobs found yet.</p>
-  @else
-    <h3 class="m-4 uppercase font-medium text-sm">✨ Recent Jobs</h3>
-  @endif
+@if(jobs.length === 0)
+<p class="text-center text-stone-800">No jobs found yet.</p>
+@else
+<h3 class="m-4 uppercase font-medium text-sm">✨ Recent Jobs</h3>
+@endif
 
-  @each(job in jobs)
-    <a href={{ job.url || route('jobs.show', [job.id]) }} class="mx-4 flex space-x-5 shadow hover:opacity-75 transition-opacity p-5">
-     @!component('partials/organization-logo', { job })
-      <div class="flex justify-between w-full">
-        <div>
-          <h3 class="font-semibold">{{ job.title }}</h3>
-          <h4>{{ job.organizationName }}</h4>
-          <div class="flex space-x-4 pt-6 flex-col sm:flex-row space-y-2 sm:space-y-0 items-center">
-            <p class="flex items-center text-sm rounded-lg px-2 py-1 border text-stone-700">
-              @include('components/icons/office-building') 
-              {{ job.type }}
-            </p>
-            <p class="flex items-center text-sm rounded-lg px-2 py-1 border text-stone-700">
-              @include('components/icons/location-marker') 
-              {{ job.location }}
-            </p>
-          </div>
-        </div>
-
-        <p class="text-stone-600">
-          {{ timeSince(job.updatedAt) }} ago
+@each(job in jobs)
+<a href={{ job.url || route('jobs.show', [job.id]) }}
+  class="mx-4 flex space-x-5 shadow hover:opacity-75 transition-opacity p-5">
+  @!component('partials/organization-logo', { job })
+  <div class="flex justify-between w-full">
+    <div>
+      <h3 class="font-semibold">{{ job.title }}</h3>
+      <h4>{{ job.organizationName }}</h4>
+      <div class="flex space-x-4 pt-6 flex-col sm:flex-row space-y-2 sm:space-y-0 items-center">
+        <p class="flex items-center text-sm rounded-lg px-2 py-1 border text-stone-700">
+          @include('components/icons/office-building')
+          {{ job.type }}
+        </p>
+        <p class="flex items-center text-sm rounded-lg px-2 py-1 border text-stone-700">
+          @include('components/icons/location-marker')
+          {{ job.location }}
         </p>
       </div>
-    </a>
-  @end
-@end
+    </div>
 
+    <p class="text-stone-600">
+      {{ timeSince(job.updatedAt) }} ago
+    </p>
+  </div>
+</a>
+@end
+@end
