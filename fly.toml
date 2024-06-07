@@ -1,12 +1,19 @@
-# fly.toml app configuration file generated for adonis-jobs on 2024-01-28T11:09:58+01:00
+# fly.toml app configuration file generated for only-jobs on 2024-06-06T20:54:47+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "adonis-jobs"
-primary_region = "cdg"
+app = 'only-jobs'
+primary_region = 'lhr'
 
 [build]
+
+[deploy]
+  release_command = '/app/docker-entrypoint.js node ace migration:run --force'
+
+[[mounts]]
+  source = 'onlyjobsuploads'
+  destination = '/app/build/tmp/'
 
 [http_service]
   internal_port = 3000
@@ -14,16 +21,9 @@ primary_region = "cdg"
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 1
-  processes = ["app"]
+  processes = ['app']
 
 [[vm]]
-  cpu_kind = "shared"
+  cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
-
-[deploy]
-  release_command = "/app/docker-entrypoint.js node ace migration:run --force"
-
-[mounts]
-  source="adonisjobsuploads"
-  destination="/app/build/tmp/"
